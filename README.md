@@ -19,8 +19,6 @@ RUN \
   rm -rf /var/lib/apt/lists/*
 
 # Install requirements
-#COPY ./requirements.txt  /tmp/requirements.txt
-#RUN pip install -r /tmp/requirements.txt
 RUN pip install pymongo -i http://pypi.douban.com/simple
 RUN pip install tornado -i http://pypi.douban.com/simple
 
@@ -32,7 +30,7 @@ CMD ["/python/"]
 
 ```
 docker run -t \
--v /home/core/share/codes/src/git.curio.com/hacker/gandalf:/python/git.curio.com/hacker/gandalf:rw \
+-v /home/vagrant/shared/codes/src/git.curio.im/hacker/gandalf:/python/git.curio.im/hacker/gandalf:rw \
 --name gandalf -i \
 -p 80:8888 \
 --link gandalf-mongo:mongo-rs \
