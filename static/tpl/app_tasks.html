@@ -1,0 +1,94 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    app.settings.asideFolded = false; 
+    app.settings.asideDock = false;
+  "  ng-controller="FormCtrl">
+  <!-- main -->
+  <div class="col">
+    <!-- main header -->
+    <div class="bg-light lter b-b wrapper-md">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <h1 class="m-n font-thin h3 text-black">Set Tasks</h1>
+          <small class="text-muted"></small>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper-md">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Tasks List <button class="btn btn-success" ng-click="open()" style="margin-left:87%;">New</button>
+        </div>
+        <div class="panel-body b-b b-light">
+          Search: <input id="filter" type="text" class="form-control input-sm w-sm inline m-r"/>
+        </div>
+        <div>
+          <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="10">
+            <thead>
+              <tr>
+                <td></td>
+                <th>Name</th>
+                <th>Task Type</th>
+                <th>Launch Type</th>
+                <th>Launch Time</th>
+                <th>Create Time</th>
+                <th>Status</th>
+                <th>Operations</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="data in taskList">
+                <td>
+                  <i class="fa fa-circle text-{{data['status']=='opened'?'success':'muted'}} pull-right text-xs m-t-sm" style="margin-top:5px"></i>
+                </td>
+                <td>{{data['name']}}</td>
+                <td>{{data['task_type']}}</td>
+                <td>{{data['launch_type']}}</td>
+                <td>{{data['launch_time']}}</td>
+                <td>{{data['create_time']}}</td>
+                <td>{{data['status']}}</td>
+                <td>
+                  <span class="label bg-success" style="cursor:pointer;color:#fff" ng-click='turnTask(data["_id"], data["status"])'>Open/Close</span>
+                  <span style="cursor:pointer;color:#fff" class="label bg-info" ng-click='checkTask(data["_id"])'>Check</span>
+                  <span class="label bg-danger" style="cursor:pointer;color:#fff" ng-click='deleteTask(data["_id"])'>Delete</span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot class="hide-if-no-paging">
+              <tr>
+                  <td></td>
+                  <td colspan="5" class="text-center">
+                      <ul class="pagination"></ul>
+                  </td>
+                  <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel b-a ng-scope" style="display:none">
+        <script type="text/ng-template" id="formSub.html">
+          <div ng-include="'static/tpl/form.html'"></div>
+        </script>
+    </div>
+    <div class="panel b-a ng-scope" style="display:none">
+        <script type="text/ng-template" id="check.html">
+          <div ng-include="'static/tpl/detail.html'"></div>
+        </script>
+    </div>   
+    <div class="panel b-a ng-scope" style="display:none">
+        <script type="text/ng-template" id="confirm.html">
+          <div ng-include="'static/tpl/confirm.html'"></div>
+        </script>
+    </div>  
+    <div style="width:500px;position:absolute;right:0px;top:0px;z-index:100000" ng-show="showMessage" class='animate-show'>
+      <div class="alert ng-isolate-scope alert-{{showType}} alert-dismissable" role="alert" type="success">
+          <button ng-show="closeable" type="button" class="close" ng-click="close()">
+              <span aria-hidden="true">×</span>
+              <span class="sr-only">Close</span>
+          </button>
+          <div><span class="ng-binding ng-scope">{{message}}</span></div>
+      </div>
+    </div>
+</div>

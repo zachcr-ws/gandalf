@@ -1,0 +1,63 @@
+<!-- list -->
+<ul class="nav">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.HEADER">Monitor</span>
+  </li>
+  <li>
+    <a ui-sref="app.total" class="auto">
+      <i class="glyphicon glyphicon-stats icon text-success"></i>
+      <span class="font-bold" translate="aside.nav.TOTAL">Total</span>
+    </a>
+  </li>
+
+  <li>
+    <a href class="auto">      
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+      <i class="glyphicon glyphicon-th icon text-info"></i>
+      <span class="font-bold" translate="aside.nav.DETAIL">DETAIL</span>
+    </a>
+    <ul class="nav nav-sub dk">
+      <li class="nav-sub-header">
+        <a href>
+          <span translate="aside.nav.DETAIL">DETAIL</span>
+        </a>
+      </li>
+
+      <li ui-sref-active="active">
+        <a ui-sref="app.success" class="auto">
+          <i class="glyphicon glyphicon-ok icon text-success"></i>
+          <span class="font-bold" translate="aside.nav.SUCCESS">Successed Task</span>
+        </a>
+      </li>
+
+      <li ui-sref-active="active">
+        <a ui-sref="app.launching" class="auto">
+          <i class="glyphicon glyphicon-plane icon text-primary"></i>
+          <span class="font-bold" translate="aside.nav.LAUNCHING">Launching Task</span>
+        </a>
+      </li>
+
+      <li ui-sref-active="active">
+        <a ui-sref="app.failed" class="auto">
+          <i class="glyphicon glyphicon-remove icon text-danger"></i>
+          <span class="font-bold" translate="aside.nav.FAIL">Failed Task</span>
+        </a>
+      </li>
+    </ul>
+  </li>
+
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+    <span translate="aside.nav.HEADER2">Operation</span>
+  </li>
+
+  <li>
+    <a ui-sref="app.tasks" class="auto">
+      <i class="glyphicon glyphicon-cog icon text-primary"></i>
+      <span class="font-bold" translate="aside.nav.SET">Set Task</span>
+    </a>
+  </li>
+</ul>
+<!-- / list -->

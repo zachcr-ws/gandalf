@@ -1,0 +1,96 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+    <i class="icon-pencil" style="position:absolute;right:20px;top:30px;cursor:pointer" ng-click="edit=!edit"></i>
+</div>
+    
+<form name='addform' class="ng-pristine ng-valid" ng-submit="submit()">
+    <div style="width:80%;margin:10px auto">
+        <div class="form-group">
+          <label>Name</label>
+          <div class='layout-ct' ng-hide="edit">{{addData.name}}</div>
+          <input type="text" class="form-control" placeholder="Name" name="addName" ng-model="addData.name" required ng-show="edit" ng-change="change()">
+        </div>
+        <div class="form-group">
+            <label>TaskType</label>
+            <div class='layout-ct' ng-hide="edit">{{addData.task_type}}</div>
+            <select name="tasktype" class="form-control m-b" ng-model="addData.task_type" required  ng-show="edit" ng-change="change()">
+                <option value="">Please Choose</option>
+                <option value="nsq">Nsq</option>
+                <option value="post">Post</option>
+                <option value="get">Get</option>
+            </select>
+        </div>
+        <div class="form-group" ng-show="addData.task_type == 'nsq'">
+          <label>Command</label>
+          <div class='layout-ct' ng-hide="edit">{{addData.command}}</div>
+          <input type="text" class="form-control" placeholder="Command" ng-model="addData.command" ng-required="addData.task_type == 'nsq'"  ng-show="edit" ng-change="change()">
+        </div>
+        <div class="form-group" ng-show="addData.task_type == 'nsq'">
+          <label>Handler</label>
+          <div class='layout-ct' ng-hide="edit">{{addData.handler}}</div>
+          <input type="text" class="form-control" placeholder="Handler or Empty" ng-model="addData.handler"  ng-show="edit" ng-change="change()">
+        </div>
+        <div class="form-group" ng-show="addData.task_type == 'post' || addData.task_type == 'get'">
+          <label>Request Address</label>
+          <div class='layout-ct' ng-hide="edit">{{addData.address}}</div>
+          <input type="text" class="form-control" placeholder="Post Address" ng-model="addData.address" ng-required="addData.task_type == 'post' || addData.task_type == 'get'" ng-show="edit" ng-change="change()">
+        </div>
+        <div class="form-group" ng-show="addData.task_type == 'post'" name='args'>
+          <label>Request Args</label>
+          <div id="pretty-json" ng-hide="edit"></div>
+          <textarea class="form-control" rows="6" placeholder="Post Args or Empty" ng-model="addData.args" ng-show="edit" ng-change="change()"></textarea>
+        </div>
+        <div class="form-group">
+            <label>LaunchType</label>
+            <div class='layout-ct' ng-hide="edit">{{addData.launch_type}}</div>
+            <select name="launchtype" class="form-control m-b" ng-model="addData.launch_type" name='launch_type' required ng-show="edit" ng-change="change()">
+                <option value="">Please Choose</option>
+                <option value="now">Now</option>
+                <option value="schedule">Schedule</option>
+                <option value="crontab">Crontab</option>
+                <option value="origin">Crontab(Original)</option>
+            </select>
+        </div>
+        <div class="form-group" ng-show="addData.launch_type == 'origin'">
+          <label>Crontab (* * * * *)</label>
+          <div class='layout-ct' ng-hide="edit">{{addData.crontab}}</div>
+          <input type="text" class="form-control" placeholder="Crontab Original" ng-model="addData.crontab" name='original' ng-required="addData.launch_type == 'origin'" ng-show="edit" ng-change="change()">
+        </div>
+        <div class="form-group" ng-show="addData.launch_type == 'schedule'">
+          <label>Date</label>
+          <div class='layout-ct' ng-hide="edit">{{addData.date}}</div>
+          <input name='dateSchedule' type="text" class="form-control ng-invalid ng-touched ng-dirty ng-valid-parse ng-invalid-required ng-valid-pattern" placeholder="YYYY-MM-DD HH:mm:ss" ng-model="addData.date" ng-pattern="/[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01]) [0-9]{2}:[0-9]{2}:[0-9]{2}$/" ng-required="addData.launch_type == 'schedule'"  ng-show="edit" ng-change="change()">
+        </div>
+        <div class="form-group" style="height:70px" ng-show="addData.launch_type == 'crontab'" ng-show="edit">
+            <label>Crontab (Month,Day,Hour,Minute)</label>
+            <div>
+                <select name="cronMon" class="form-control m-b" style="width:85px;float:left;" ng-model="addData.option.cronMon" name='cronMon' ng-change="change()">
+                    <option value="">Every Mon</option>
+                    <option ng-repeat="m in range(12) track by $index" value="{{$index+1}}">Every {{$index+1}} Month</option>
+                </select>
+                <select name="cronDay" class="form-control m-b" style="width:85px;float:left;margin-left:10px" ng-model="addData.option.cronDay" ng-show="addData.option.cronWeek == ''" name='cronDay' ng-change="change()">
+                    <option value="">Every Day</option>
+                    <option ng-repeat="m in range(31) track by $index" value="{{$index+1}}">Every {{$index+1}} Day</option>
+                </select>
+                <select name="cronWeek" class="form-control m-b" style="width:85px;float:left;margin-left:10px" ng-model="addData.option.cronWeek" ng-show="addData.option.cronDay == ''" name='cronWeek' ng-change="change()">
+                    <option value="">Every Week</option>
+                    <option ng-repeat="m in range(7) track by $index" value="{{$index+1==7?0:($index+1)}}">Every {{$index+1}} Weekday</option>
+                </select>
+                <select name="cronHour" class="form-control m-b" style="width:85px;float:left;margin-left:10px" ng-model="addData.option.cronHour" name='cronHour' ng-change="change()">
+                    <option value="">Every Hour</option>
+                    <option ng-repeat="m in range(24) track by $index" value="{{$index+1}}">{{$index+1}}:00</option>
+                </select>
+                <select name="cronMin" class="form-control m-b" style="width:85px;float:left;margin-left:10px" ng-model="addData.option.cronMin" name='cronMin' ng-change="change()">
+                    <option value="">Every Min</option>
+                    <option ng-repeat="m in range(60) track by $index" value="{{$index+1}}">00:{{$index+1}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <span style="float:left;margin-left:50px;color:red;font-weight:bold">{{errMsg}}</span>                 
+        <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary" ng-show="edit">Submit</button>
+    </div>
+</form>

@@ -1,0 +1,40 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    app.settings.asideFolded = false; 
+    app.settings.asideDock = false;
+  ">
+  <!-- main -->
+  <div class="col" ng-controller="LaunchingLogCtrl">
+    <!-- main header -->
+    <div class="bg-light lter b-b wrapper-md">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <h1 class="m-n font-thin h3 text-black">Launching Tasks</h1>
+          <small class="text-muted"></small>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-primary ng-scope" style="width:1000px;margin:10px auto">
+      <div class="panel-heading">
+          Lists
+      </div>
+      <div class="panel-body">
+        <div class="col-lg-12 wrapper-md">
+          <div>
+            <accordion close-others="oneAtATime">
+              <accordion-group heading="{{group.name}} : {{group.start_time*1000 | date:'yyyy-MM-dd HH:mm:ss Z'}}" ng-repeat="group in groups">
+                <div ng-repeat="co in group['content']">
+                  <p><span>{{co}}</span></p>
+                </div>
+              </accordion-group>
+            </accordion>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <i class="fa fa-arrow-right hover" style="float:right;margin-left:10px" ng-click="next()"></i>
+          <i class="fa fa-arrow-left hover" style="float:right;" ng-click="pre()"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
