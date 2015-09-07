@@ -21,6 +21,8 @@ RUN \
 # Install requirements
 RUN pip install pymongo -i http://pypi.douban.com/simple
 RUN pip install tornado -i http://pypi.douban.com/simple
+RUN pip insatll requests -i http://pypi.douban.com/simple
+RUN pip install raven -i http://pypi.douban.com/simple
 
 # Define default command.
 CMD ["/python/"]
