@@ -15,6 +15,10 @@ def md5String( code ):
     m.update(str(code) + ":" + str(unix))
     return m.hexdigest()
 
+def transfer( i ):
+    i["_id"] = str(i["_id"])
+    return i
+    
 def getUrlHandler( url, param ):
     paramStr = ""
     for i in param:

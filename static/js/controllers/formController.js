@@ -3,8 +3,22 @@ app.controller('FormCtrl', ['$scope', '$modal', '$log', '$timeout', 'httpService
   $temp_scope = $scope;
   $scope.initTable = function(){
     httpServices.getLists().success(function(resp){
-      console.log(resp);
       $scope.taskList = resp
+      for(var i in $scope.taskList) {
+        if($scope.taskList[i]["launch_type"] == "now") {
+          $scope.taskList[i]["launch_time"] = "once"
+        }else if($scope.taskList[i]["launch_type"] == "schedule"){
+          $scope.taskList[i]["launch_time"] = $scope.taskList[i]["date"]
+        }else if($scope.taskList[i]["launch_type"] == "crontab") {
+          $scope.taskList[i]["launch_time"] = $scope.taskList[i]["crontab"]
+        }
+
+        if($scope.taskList[i]["status"] == 0){
+          $scope.taskList[i]["status"] = "closed"
+        }else{
+          $scope.taskList[i]["status"] = "opened"
+        }
+      }
     });
   }
   $scope.initTable();

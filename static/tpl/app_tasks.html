@@ -44,7 +44,7 @@
                 <td>{{data['task_type']}}</td>
                 <td>{{data['launch_type']}}</td>
                 <td>{{data['launch_time']}}</td>
-                <td>{{data['create_time']}}</td>
+                <td>{{data['create_time']*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                 <td>{{data['status']}}</td>
                 <td>
                   <span class="label bg-success" style="cursor:pointer;color:#fff" ng-click='turnTask(data["_id"], data["status"])'>Open/Close</span>

@@ -48,7 +48,7 @@ def launch( data ):
                 r = requests.get(url)
                 content = json.dumps(r.text)
             except Exception, ex:
-                content = "\"http get error\" " + str(Exception)+":"+str(ex)
+                content = "\"http get error " + str(Exception) + ":" + str(ex) + "\""
                 error = True
         elif data["task_type"] == "post":
             jsonData = json.loads(data['args'])
@@ -57,7 +57,7 @@ def launch( data ):
                 r = requests.post(data["address"], data=jsonData)
                 content = json.dumps(r.text)
             except Exception, ex:
-                content = "\"http get error\" " + str(Exception)+":"+str(ex)
+                content = "\"http get error " + str(Exception) + ":" + str(ex) + "\""
                 error = True
     else:
         nsqHelper.nsqProductor(hexId, data["handler"], data["command"])
