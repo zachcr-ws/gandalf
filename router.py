@@ -1,48 +1,41 @@
 #coding: utf-8
 import tornado.web as web
 from controller import indexCtl, addCtl, getlistCtl, deleteCtl, turnCtl, updateCtl, loopCtl
-from config import config
 from raven.contrib.tornado import AsyncSentryClient
+from config import config
 import os
 import db
 
 #connect db
-Mongo = db.MongoDB(config.mongo)
-DB = Mongo.getDB()
+config.mongo = db.MongoDSL()
 
 def loopTask():
-    loopCtl.loop(Mongo)
+    loopCtl.loop()
  
 class IndexHandler(web.RequestHandler):
     def get(self):
-        indexCtl.index(self, DB)
+        indexCtl.index(self)
 class AddHandler(web.RequestHandler):
     def post(self):
-        addCtl.add(self, DB)
+        addCtl.add(self)
 class TasklistHandler(web.RequestHandler):
     def get(self):
-        getlistCtl.index(self, Mongo)
+        getlistCtl.index(self)
 class TaskHandler(web.RequestHandler):
      def get(self):
-        getlistCtl.getById(self, Mongo)
+        getlistCtl.getById(self)
 class DeleteTaskHandler(web.RequestHandler):
     def post(self):
-        deleteCtl.deleteById(self, DB)
+        deleteCtl.deleteById(self)
 class TurnTaskHandler(web.RequestHandler):
     def post(self):
-        turnCtl.turn(self, Mongo)
+        turnCtl.turn(self)
 class UpdateHandler(web.RequestHandler):
     def post(self):
-        updateCtl.update(self, Mongo)
-class LogContentHandler(web.RequestHandler):
-    def get(self):
-        updateCtl.updateLogContent(self, Mongo)
-class LogStatusHandler(web.RequestHandler):
-    def get(self):
-        updateCtl.updateLogStatus(self, Mongo)
+        updateCtl.update(self)
 class GetLogHandler(web.RequestHandler):
     def get(self):
-        getlistCtl.getLog(self, Mongo)
+        getlistCtl.getLog(self)
 
 handler = [
     (r"/", IndexHandler),
@@ -52,8 +45,6 @@ handler = [
     (r"/turn", TurnTaskHandler),
     (r"/getListById", TaskHandler),
     (r"/update", UpdateHandler),
-    (r"/addContent", LogContentHandler),
-    (r"/logStatus", LogStatusHandler),
     (r"/getLog", GetLogHandler)
 ]
 

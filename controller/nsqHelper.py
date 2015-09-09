@@ -4,7 +4,7 @@ import nsq
 import json
 
 def nsqProductor(id, handler, command):
-    topic = "Nsq-Curio-Task"
+    topic = "Gandalf"
     if handler != "":
         topic = handler
 

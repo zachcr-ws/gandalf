@@ -1,29 +1,30 @@
 #coding: utf-8
 from bson.objectid import ObjectId
+from config import config
 import common
 import json
 
-def index(obj, Mongo):
+def index(obj):
     result = []
-    cursor = Mongo.getDbData("tasks")
+    cursor = config.mongo.find("tasks")
     for i in cursor:
         data = transfer(i)
         result.append(data)
     obj.set_header("Content-Type", "text/plain")
     obj.write(json.dumps(result))
 
-def getById(obj, Mongo):
+def getById(obj):
     taskId = obj.get_argument("id")
     result = []
     if taskId:
-        cursor = Mongo.getDbData("tasks", {"_id": ObjectId(taskId)})
+        cursor = config.mongo.find("tasks", {"_id": ObjectId(taskId)})
         for i in cursor:
             i["_id"] = str(i["_id"])
             result.append(i)
     obj.set_header("Content-Type", "text/plain")
     obj.write(json.dumps(result))
 
-def getLog(obj, Mongo):
+def getLog(obj):
     status = obj.get_argument("status")
     page = int(obj.get_argument("page"))
     size = int(obj.get_argument("size"))
@@ -35,7 +36,7 @@ def getLog(obj, Mongo):
         skip = 0
     result = []
     if status:
-        cursor = Mongo.getDbData("tasks_log", {"status": status}, "start_time", "DESC", limit, skip)
+        cursor = config.mongo.find("tasks_log", {"status": status}, "start_time", "DESC", limit, skip)
         for i in cursor:
             i["_id"] = str(i["_id"])
             i["task_id"] = str(i["task_id"])

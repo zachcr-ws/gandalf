@@ -12,7 +12,7 @@ angular.module('app')
 
       // config
       $scope.app = {
-        name: 'CurioTask',
+        name: 'Gandalf',
         version: '1.3.3',
         // for chart colors
         color: {

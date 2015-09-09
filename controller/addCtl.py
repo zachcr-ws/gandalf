@@ -2,38 +2,23 @@
 import tornado
 import datetime
 import time
-import json
+import response
+from config import config
 
-def add(obj, db):
-    result = ""
-    col = db["tasks"]
+def add(obj):
     data = tornado.escape.json_decode(obj.request.body)
     if("name" not in data or "task_type" not in data or "launch_type" not in data):
-        result = {
-            "code" : "400",
-            "msg" : "Missing Argments"
-        }
+        response.Response(obj, 201, "Missing Argments")
 
     data["status"] = 0
     data["create_time"] = time.mktime(datetime.datetime.now().timetuple())
-    task_id = col.insert(data)
-
-    if(task_id):
-        result = {
-            "code" : "200",
-            "msg" : str(task_id)
-        }
+    task_id = config.mongo.insert("tasks", data)
+    if task_id:
+        response.Response(obj, 200, "success", str(task_id))
     else:
-        result = {
-            "code" : "401",
-            "msg" : "Insert Error"
-        }
+        response.Response(obj, 202, "Insert Error")
 
-    obj.set_header("Content-Type", "text/plain")
-    obj.write(json.dumps(result))
-
-def addLog(task, logid, content, error, Mongo):
-    col = Mongo.getDB()["tasks_log"]
+def addLog(task, logid, content, error):
     data = {}
     data["logid"] = logid
     data["name"] = task["name"]
@@ -46,8 +31,8 @@ def addLog(task, logid, content, error, Mongo):
     if error:
         data["end_time"] = time.mktime(datetime.datetime.now().timetuple())
         data["status"] = "fail"
-    elif error == False and (data["task_type"] == "get" or data["task_type"] == "post"):
+    elif error == False:
         data["status"] = "success"
     data["content"] = '{"1":' + content + '}'
 
-    log_id = col.insert(data)
+    config.mongo.insert("log", data)
