@@ -23,9 +23,7 @@
           <div>
             <accordion close-others="oneAtATime">
               <accordion-group heading="{{group.name}}-{{group.start_time*1000 | date:'yyyy-MM-dd HH:mm:ss Z'}}" ng-repeat="group in groups">
-                <div ng-repeat="co in group['content']">
-                  <p><span>{{co}}</span></p>
-                </div>
+                  <p><span>{{group["content"]}}</span></p>
               </accordion-group>
             </accordion>
           </div>

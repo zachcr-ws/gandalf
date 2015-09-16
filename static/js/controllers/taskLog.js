@@ -13,7 +13,7 @@ app.controller('SuccessLogCtrl', ['$scope', 'httpServices',function($scope, http
     httpServices.getLogs( "success", $scope.page, $scope.size).success(function(resp){
       if(resp){
         for(var i in resp){
-          resp[i]["content"] = JSON.parse(resp[i]["content"])
+          resp[i]["content"] = JSON.parse(JSON.parse(resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", "")));
         }
         $scope.groups = resp;
       }
@@ -52,7 +52,7 @@ app.controller('FailLogCtrl', ['$scope', 'httpServices',function($scope, httpSer
     httpServices.getLogs( "fail", $scope.page, $scope.size).success(function(resp){
       if(resp){
         for(var i in resp){
-          resp[i]["content"] = JSON.parse(resp[i]["content"])
+          resp[i]["content"] = JSON.parse(resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", ""));
         }
         $scope.groups = resp;
       }
@@ -90,7 +90,7 @@ app.controller('DelayLogCtrl', ['$scope', 'httpServices',function($scope, httpSe
     httpServices.getLogs( "delay", $scope.page, $scope.size).success(function(resp){
       if(resp){
         for(var i in resp){
-          resp[i]["content"] = JSON.parse(resp[i]["content"])
+          resp[i]["content"] = JSON.parse(JSON.parse(resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", "")));
         }
         $scope.groups = resp;
       }
@@ -128,7 +128,7 @@ app.controller('LaunchingLogCtrl', ['$scope', 'httpServices',function($scope, ht
     httpServices.getLogs( "launching", $scope.page, $scope.size).success(function(resp){
       if(resp){
         for(var i in resp){
-          resp[i]["content"] = JSON.parse(resp[i]["content"])
+          resp[i]["content"] = JSON.parse(JSON.parse(resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", "")));
         }
         $scope.groups = resp;
       }

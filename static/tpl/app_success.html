@@ -22,10 +22,8 @@
         <div class="col-lg-12 wrapper-md">
           <div>
             <accordion close-others="oneAtATime">
-              <accordion-group heading="{{group.name}} : {{group.start_time*1000 | date:'yyyy-MM-dd HH:mm:ss Z'}}" ng-repeat="group in groups">
-                <div ng-repeat="co in group['content']">
-                  <p><span>{{co}}</span></p>
-                </div>
+              <accordion-group heading="{{group.name}} : {{group.start_time*1000 | date:'yyyy-MM-dd HH:mm:ss Z'}}" ng-repeat="group in groups" style="overflow: scroll">
+                  <p><json-tree object='group["content"]'></json-tree></p>
               </accordion-group>
             </accordion>
           </div>

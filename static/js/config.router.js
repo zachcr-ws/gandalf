@@ -40,21 +40,50 @@ angular.module('app')
                 resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
-                        return $ocLazyLoad.load(['static/vendor/angular/angular-bootstrap/ui-bootstrap-tpls.js']);
+                        return $ocLazyLoad.load(['static/vendor/angular/angular-bootstrap/ui-bootstrap-tpls.js',
+                          'static/css/pretty-json.css',
+                          'static/vendor/libs/pretty-json-min.js']);
                     }]
                   }
               })
               .state('app.delay', {
                 url: '/delay',
                 templateUrl: 'static/tpl/app_delay.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                        return $ocLazyLoad.load([
+                          'static/css/pretty-json.css',
+                          'static/vendor/libs/pretty-json-min.js'
+                        ]);
+                    }]
+                  }
               })
               .state('app.launching', {
                 url: '/launching',
                 templateUrl: 'static/tpl/app_launching.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                        return $ocLazyLoad.load([
+                          'static/css/pretty-json.css',
+                          'static/vendor/libs/pretty-json-min.js'
+                        ]);
+                    }]
+                  }
               })
               .state('app.failed', {
                 url: '/failed',
                 templateUrl: 'static/tpl/app_failed.html',
+                resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                        return $ocLazyLoad.load([
+                          'static/css/pretty-json.css',
+                          'static/vendor/libs/pretty-json-min.js'
+                        ]);
+                    }]
+                  }
               })
               .state('app.tasks', {
                 url: '/tasks',

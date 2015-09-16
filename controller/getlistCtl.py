@@ -36,7 +36,7 @@ def getLog(obj):
         skip = 0
     result = []
     if status:
-        cursor = config.mongo.find("tasks_log", {"status": status}, "start_time", "DESC", limit, skip)
+        cursor = config.mongo.find("log", {"status": status}, "start_time", "DESC", limit, skip)
         for i in cursor:
             i["_id"] = str(i["_id"])
             i["task_id"] = str(i["task_id"])

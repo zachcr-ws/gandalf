@@ -172,7 +172,7 @@ app.controller('DetailSetCtrl', ['$scope', '$modalInstance', "$timeout", 'datas'
     intval = setInterval(function(){
       var dom = $("#pretty-json");
       if(dom){
-        var node = new PrettyJSON.view.Node({ 
+        var node = new PrettyJSON.view.Node({
           el:dom,
           data:o
         });

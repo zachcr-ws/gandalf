@@ -20,15 +20,15 @@ def add(obj):
 
 def addLog(task, logid, content, error):
     data = {
-        logid: logid,
-        name: task["name"],
-        task_id: task["_id"],
-        task_type: task["task_type"],
-        launch_type: task["launch_type"],
-        start_time: time.mktime(datetime.datetime.now().timetuple()),
-        end_time: "",
-        status: "launching",
-        content: '{"1":' + content + '}'
+        "logid": logid,
+        "name": task["name"],
+        "task_id": task["_id"],
+        "task_type": task["task_type"],
+        "launch_type": task["launch_type"],
+        "start_time": time.mktime(datetime.datetime.now().timetuple()),
+        "end_time": "",
+        "status": "launching",
+        "content": content
     }
 
     if error:
