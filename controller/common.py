@@ -2,15 +2,18 @@
 import datetime
 import time
 import md5
+import pytz
 
-def unix2date( time, tformat ):
-    return datetime.datetime.fromtimestamp( int(time) ).strftime(tformat)
+tz = pytz.timezone(pytz.country_timezones('cn')[0])
+
+def unix2date( t, tformat ):
+    return datetime.datetime.fromtimestamp( int(t) ).strftime(tformat)
 
 def date2unix( date, tformat ):
     return time.mktime(datetime.datetime.strptime(date, tformat).timetuple())
 
 def md5String( code ):
-    unix = time.mktime(datetime.datetime.now().timetuple())
+    unix = time.mktime(datetime.datetime.now(tz).timetuple())
     m = md5.new()
     m.update(str(code) + ":" + str(unix))
     return m.hexdigest()

@@ -20,7 +20,7 @@ def launchKeeper(data):
     if data["launch_type"] == "now":
         launchOnce(data)
     elif data["launch_type"] == "schedule":
-        now_unix = time.mktime(datetime.datetime.now().timetuple())
+        now_unix = time.mktime(datetime.datetime.now(common.tz).timetuple())
         now_date = common.unix2date( now_unix, "%Y-%m-%d %H:%M:%S" )
         if now_date == data["date"]:
             launchOnce(data)
@@ -32,7 +32,7 @@ def launchOnce(data):
     updateCtl.updateTask(data)
 
 def launchDelay(data):
-    now_date = datetime.datetime.now()
+    now_date = datetime.datetime.now(common.tz)
     cron_arr = data["crontab"].split(" ")
     if (cron_arr[0] == "*" or int(cron_arr[0]) == now_date.minute) and (cron_arr[1] == "*" or int(cron_arr[1]) == now_date.hour) and (cron_arr[2] == "*" or int(cron_arr[2]) == now_date.day) and (cron_arr[3] == "*" or int(cron_arr[3]) == now_date.month) and (cron_arr[4] == "*" or int(cron_arr[4]) == now_date.weekday() + 1):
        launch(data)

@@ -11,6 +11,6 @@ if __name__ == "__main__":
     config.nsq_writer = writer
 
     router.application.listen(8888)
-    tornado.ioloop.PeriodicCallback(router.loopTask, 10000).start()
+    tornado.ioloop.PeriodicCallback(router.loopTask, 1000).start()
     tornado.ioloop.IOLoop.instance().start()
     nsq.run()
