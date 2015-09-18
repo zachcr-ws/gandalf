@@ -21,6 +21,9 @@ app.factory('httpServices', ['$http', function($http) {
         },
         getLogs : function( status, page, size){
             return $http.get('/getLog?status=' + status + "&page=" + page + "&size=" + size)
+        },
+        getOverview: function(){
+            return $http.get("/overview")
         }
     };
 }]);

@@ -10,5 +10,5 @@ def Response(obj, code, msg, data=""):
     if data != "":
         result["data"] = data
 
-    obj.set_header("Content-Type", "text/plain")
+    obj.set_header("Content-Type", "application/json")
     obj.write(json.dumps(result))

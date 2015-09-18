@@ -1,6 +1,6 @@
 #coding: utf-8
 import tornado.web as web
-from controller import indexCtl, addCtl, getlistCtl, deleteCtl, turnCtl, updateCtl, loopCtl
+from controller import indexCtl, addCtl, getlistCtl, deleteCtl, turnCtl, updateCtl, loopCtl, statistics
 from raven.contrib.tornado import AsyncSentryClient
 from config import config
 import os
@@ -36,6 +36,12 @@ class UpdateHandler(web.RequestHandler):
 class GetLogHandler(web.RequestHandler):
     def get(self):
         getlistCtl.getLog(self)
+class GetStatisticsHandler(web.RequestHandler):
+    def get(self):
+        statistics.getOverview(self)
+class GetLogByIdHandler(web.RequestHandler):
+    def get(self):
+        statistics.getOneTaskLog(self)
 
 handler = [
     (r"/", IndexHandler),
@@ -45,7 +51,9 @@ handler = [
     (r"/turn", TurnTaskHandler),
     (r"/getListById", TaskHandler),
     (r"/update", UpdateHandler),
-    (r"/getLog", GetLogHandler)
+    (r"/getLog", GetLogHandler),
+    (r"/overview", GetStatisticsHandler),
+    (r"/logs", GetLogByIdHandler)
 ]
 
 settings = {

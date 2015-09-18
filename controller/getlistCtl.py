@@ -10,7 +10,7 @@ def index(obj):
     for i in cursor:
         data = common.transfer(i)
         result.append(data)
-    obj.set_header("Content-Type", "text/plain")
+    obj.set_header("Content-Type", "application/json")
     obj.write(json.dumps(result))
 
 def getById(obj):
@@ -21,7 +21,7 @@ def getById(obj):
         for i in cursor:
             i["_id"] = str(i["_id"])
             result.append(i)
-    obj.set_header("Content-Type", "text/plain")
+    obj.set_header("Content-Type", "application/json")
     obj.write(json.dumps(result))
 
 def getLog(obj):
@@ -41,5 +41,5 @@ def getLog(obj):
             i["_id"] = str(i["_id"])
             i["task_id"] = str(i["task_id"])
             result.append(i)
-    obj.set_header("Content-Type", "text/plain")
+    obj.set_header("Content-Type", "application/json")
     obj.write(json.dumps(result))

@@ -18,7 +18,7 @@ def update(obj):
         result = config.mongo.update("tasks", {"_id": ObjectId(taskId)}, data)
         if result["ok"] == 1 and result["n"] == 1:
             code = 200
-    obj.set_header("Content-Type", "text/plain")
+    obj.set_header("Content-Type", "application/json")
     obj.write(json.dumps({"code": code, "msg": taskId}))
 
 def updateTask(data):

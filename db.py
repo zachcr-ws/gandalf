@@ -16,6 +16,10 @@ class MongoDSL:
         col = self.DB[name]
         return col.insert(data)
 
+    def count(self, name, query):
+        col = self.DB[name]
+        return col.count(query)
+
     def delete(self, name, query):
         col = self.DB[name]
         return col.remove(query)
