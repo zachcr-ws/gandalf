@@ -7,7 +7,7 @@ def deleteById(obj):
     taskId = obj.get_argument("id")
 
     code = 201
-    msg = "failed"
+    msg = "fail"
     if taskId:
         result = config.mongo.delete("tasks", {"_id": ObjectId(taskId)})
         if result["n"] == 1 and result["ok"] == 1:

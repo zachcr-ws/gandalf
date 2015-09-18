@@ -5,21 +5,22 @@ import tornado
 import datetime
 import time
 import json
+import response
 
 def update(obj):
-    taskId = obj.get_argument("id")
     code = 400
+    msg = "fail"
 
-    if taskId:
-        data = tornado.escape.json_decode(obj.request.body)
-        if isinstance(data["_id"], unicode):
-            data["_id"] = ObjectId(data["_id"])
-        data["create_time"] = time.mktime(datetime.datetime.now().timetuple())
-        result = config.mongo.update("tasks", {"_id": ObjectId(taskId)}, data)
-        if result["ok"] == 1 and result["n"] == 1:
-            code = 200
-    obj.set_header("Content-Type", "application/json")
-    obj.write(json.dumps({"code": code, "msg": taskId}))
+    data = tornado.escape.json_decode(obj.request.body)
+    if isinstance(data["_id"], unicode):
+        data["_id"] = ObjectId(data["_id"])
+    data["create_time"] = time.mktime(datetime.datetime.now().timetuple())
+    result = config.mongo.update("tasks", {"_id": data["_id"]}, data)
+    if result["ok"] == 1 and result["n"] == 1:
+        code = 200
+        msg = "success"
+
+    response.Response(obj, code, msg)
 
 def updateTask(data):
     taskId = data["_id"]

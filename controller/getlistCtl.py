@@ -3,6 +3,7 @@ from bson.objectid import ObjectId
 from config import config
 import common
 import json
+import response
 
 def index(obj):
     result = []
@@ -10,8 +11,7 @@ def index(obj):
     for i in cursor:
         data = common.transfer(i)
         result.append(data)
-    obj.set_header("Content-Type", "application/json")
-    obj.write(json.dumps(result))
+    response.Response(obj, 200, "success", result)
 
 def getById(obj):
     taskId = obj.get_argument("id")
@@ -21,8 +21,7 @@ def getById(obj):
         for i in cursor:
             i["_id"] = str(i["_id"])
             result.append(i)
-    obj.set_header("Content-Type", "application/json")
-    obj.write(json.dumps(result))
+    response.Response(obj, 200, "success", result)
 
 def getLog(obj):
     status = obj.get_argument("status")
@@ -41,5 +40,4 @@ def getLog(obj):
             i["_id"] = str(i["_id"])
             i["task_id"] = str(i["task_id"])
             result.append(i)
-    obj.set_header("Content-Type", "application/json")
-    obj.write(json.dumps(result))
+    response.Response(obj, 200, "success", result)
