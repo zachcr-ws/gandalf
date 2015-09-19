@@ -46,9 +46,11 @@ class MongoDSL:
 
 class MongoDB:
 
-    def __init__(self, config):
-        self.client = MongoClient( config['hosts'] )
-        self.db = self.client[config['db']]
+    def __init__(self, c):
+        self.client = MongoClient( c['hosts'] )
+        self.db = self.client[c['db']]
+        if config.mongoUser["user"] != "":
+            self.db.authenticate(config.mongoUser["user"], config.mongoUser["password"]) 
 
     def getDB(self):
         return self.db

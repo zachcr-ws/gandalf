@@ -5,8 +5,8 @@ mongoConfig = {
     "db" : "gandalf"
 }
 mongoUser = {
-    "user": "",
-    "password": ""
+    "user": "gandalf",
+    "password": "gandalf"
 }
 
 nsq = {

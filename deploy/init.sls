@@ -33,7 +33,7 @@ python-virtualenv:
 
 pip-install:
   cmd.run:
-    - name: pip install pymongo tornado requests raven pytz -i http://pypi.douban.com/simple
+    - name: pip install pymongo pynsq tornado requests raven pytz -i http://pypi.douban.com/simple
     - user: root
 
 supervisor:

@@ -8,7 +8,7 @@ kill-app:
 
 update-app:
   cmd.run:
-    - name: rsync --delete -avz /tmp/gandalf/ /home/www/gandalf && chmod +x /home/www/gandalf && chown -R www-data:www-data /home/www/gandalf
+    - name: rsync --delete -avz /tmp/gandalf/ /home/www/gandalf && cp /home/www/gandalf/config/config.py.sample /home/www/gandalf/config/config.py && chmod +x /home/www/gandalf && chown -R www-data:www-data /home/www/gandalf
     - user: root
     - group: root
 
