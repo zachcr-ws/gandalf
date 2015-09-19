@@ -3,20 +3,22 @@ app.controller('FormCtrl', ['$scope', '$modal', '$log', '$timeout', 'httpService
   $temp_scope = $scope;
   $scope.initTable = function(){
     httpServices.getLists().success(function(resp){
-      $scope.taskList = resp
-      for(var i in $scope.taskList) {
-        if($scope.taskList[i]["launch_type"] == "now") {
-          $scope.taskList[i]["launch_time"] = "once"
-        }else if($scope.taskList[i]["launch_type"] == "schedule"){
-          $scope.taskList[i]["launch_time"] = $scope.taskList[i]["date"]
-        }else if($scope.taskList[i]["launch_type"] == "crontab") {
-          $scope.taskList[i]["launch_time"] = $scope.taskList[i]["crontab"]
-        }
+      if(resp.code == 200){
+        $scope.taskList = resp.data;
+        for(var i in $scope.taskList) {
+          if($scope.taskList[i]["launch_type"] == "now") {
+            $scope.taskList[i]["launch_time"] = "once"
+          }else if($scope.taskList[i]["launch_type"] == "schedule"){
+            $scope.taskList[i]["launch_time"] = $scope.taskList[i]["date"]
+          }else if($scope.taskList[i]["launch_type"] == "crontab") {
+            $scope.taskList[i]["launch_time"] = $scope.taskList[i]["crontab"]
+          }
 
-        if($scope.taskList[i]["status"] == 0){
-          $scope.taskList[i]["status"] = "closed"
-        }else{
-          $scope.taskList[i]["status"] = "opened"
+          if($scope.taskList[i]["status"] == 0){
+            $scope.taskList[i]["status"] = "closed"
+          }else{
+            $scope.taskList[i]["status"] = "opened"
+          }
         }
       }
     });
@@ -125,8 +127,8 @@ app.controller('FormCtrl', ['$scope', '$modal', '$log', '$timeout', 'httpService
 
   $scope.checkTask = function( id ){
     httpServices.getListById(id).success(function(resp){
-      if(resp){
-        $scope.openDetail(resp)
+      if(resp.code == 200){
+        $scope.openDetail(resp.data)
       }
     });
   }
