@@ -16,6 +16,7 @@ deploy_prod:
   - rsync --delete -avz $PROJECT_CI_PATH/ root@salt-master-internal.curio.im:/mnt/sdc/gocode/src/$REPO_PATH
   - ssh root@salt-master-internal.curio.im "salt hk-qc-ap1-130-3-build-bot state.sls prod.gandalf.build"
   - ssh root@salt-master-internal.curio.im "salt cn-qc-gd1-9-17-crontab-server-1 state.sls prod.gandalf.publish"
+  - echo "ok"
   type: deploy
   only:
   - prod
