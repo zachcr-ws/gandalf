@@ -21,6 +21,8 @@ def getOneTaskLog(obj):
         for i in cursor:
             i["_id"] = str(i["_id"])
             i["task_id"] = str(i["task_id"])
+            i["start_time"] = int(i["start_time"])
+            i["end_time"] = int(i["end_time"])
             result.append(i)
     else:
         code = 201
