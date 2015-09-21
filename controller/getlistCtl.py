@@ -20,6 +20,7 @@ def getById(obj):
         cursor = config.mongo.find("tasks", {"_id": ObjectId(taskId)})
         for i in cursor:
             i["_id"] = str(i["_id"])
+            i["create_time"] = int(i["create_time"])
             result.append(i)
     response.Response(obj, 200, "success", result)
 
@@ -39,5 +40,6 @@ def getLog(obj):
         for i in cursor:
             i["_id"] = str(i["_id"])
             i["task_id"] = str(i["task_id"])
+            i["start_time"] = int(i["start_time"])
             result.append(i)
     response.Response(obj, 200, "success", result)
