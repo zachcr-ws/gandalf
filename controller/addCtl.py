@@ -9,7 +9,7 @@ def add(obj):
     data = tornado.escape.json_decode(obj.request.body)
     if("name" not in data or "task_type" not in data or "launch_type" not in data):
         response.Response(obj, 201, "Missing Argments")
-
+    del data["_id"]
     data["status"] = 0
     data["create_time"] = time.mktime(datetime.datetime.now().timetuple())
     task_id = config.mongo.insert("tasks", data)
