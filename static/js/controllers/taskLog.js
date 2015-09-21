@@ -14,8 +14,13 @@ app.controller('SuccessLogCtrl', ['$scope', 'httpServices',function($scope, http
       if(resp.code == 200){
         resp = resp.data
         for(var i in resp){
-          resp[i]["content"] = JSON.parse(JSON.parse(resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", "")));
+          try{
+            resp[i]["content"] = JSON.parse(JSON.parse(resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", "")));
+          }catch(err){
+            resp[i]["content"] = resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", "");
+          }
         }
+
         $scope.groups = resp;
       }
     });
@@ -54,7 +59,11 @@ app.controller('FailLogCtrl', ['$scope', 'httpServices',function($scope, httpSer
       if(resp.code == 200){
         resp = resp.data
         for(var i in resp){
-          resp[i]["content"] = JSON.parse(resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", ""));
+          try{
+            resp[i]["content"] = JSON.parse(resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", ""));
+          }catch(err){
+            resp[i]["content"] = resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", "")
+          }
         }
         $scope.groups = resp;
       }
@@ -93,7 +102,11 @@ app.controller('DelayLogCtrl', ['$scope', 'httpServices',function($scope, httpSe
       if(resp.code == 200){
         resp = resp.data
         for(var i in resp){
-          resp[i]["content"] = JSON.parse(JSON.parse(resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", "")));
+          try{
+            resp[i]["content"] = JSON.parse(JSON.parse(resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", "")));
+          }catch(err){
+            resp[i]["content"] = resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", "")
+          }
         }
         $scope.groups = resp;
       }
@@ -132,7 +145,11 @@ app.controller('LaunchingLogCtrl', ['$scope', 'httpServices',function($scope, ht
       if(resp.code == 200){
         resp = resp.data
         for(var i in resp){
-          resp[i]["content"] = JSON.parse(JSON.parse(resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", "")));
+          try{
+            resp[i]["content"] = JSON.parse(JSON.parse(resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", "")));
+          }catch(err){
+            resp[i]["content"] = resp[i]["content"].replace("JSON_CALLBACK(", "").replace(");", "")
+          }
         }
         $scope.groups = resp;
       }
